@@ -68,12 +68,13 @@ export default {
             this.obfuscateMeaning()
         },
         obfuscateMeaning() {
-            let bareMeaning = this.displayHanzi.meanings[0].meaning
+            const bareMeaning = this.displayHanzi.meanings[0].meaning
             const hanzi = this.displayHanzi.hanzi
             const pinyin = this.correctPinyin
-            this.displayMeaning = bareMeaning
-            if (this.displayMeaning.search(hanzi)) {
-                this.displayMeaning = this.displayMeaning.replace(pinyin, '~')
+            if (bareMeaning.search(hanzi) > -1) {
+                this.displayMeaning = bareMeaning.replaceAll(pinyin, '~')
+            } else {
+                this.displayMeaning = bareMeaning
             }
         }
     },
