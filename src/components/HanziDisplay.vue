@@ -48,7 +48,7 @@ export default {
             while (choices.length < 5) {
                 const index = this.getRandom(this.uniquePinyins.length)
                 const pinyin = this.uniquePinyins[index]
-                if (pinyin != answer) {
+                if ((choices.indexOf(pinyin) == -1) && (pinyin != answer)) {
                     choices.push(pinyin)
                 }
             }
