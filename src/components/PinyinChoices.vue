@@ -54,7 +54,8 @@ td {
 export default {
     data() {
         return {
-            selectedPinyinId: null
+            selectedPinyinId: null,
+            isChoiceCorrect: false,
         }
     },
     props: {
@@ -63,17 +64,20 @@ export default {
     },
     methods: {
         selectChoice(id) {
-            if (this.selectedPinyinId != null) {
-                let previousSelectedBtn = document.getElementById('choice' + this.selectedPinyinId)
-                previousSelectedBtn.classList.remove('btn-danger', 'btn-success')
+            if (!this.isChoiceCorrect)
+            {
+                if (this.selectedPinyinId != null) {
+                    let previousSelectedBtn = document.getElementById('choice' + this.selectedPinyinId)
+                    previousSelectedBtn.classList.remove('btn-danger', 'btn-success')
+                }
+                this.selectedPinyinId = id
+                let selectedBtn = document.getElementById('choice' + id)
+                let checkBtn = document.getElementById('checkBtn')
+                checkBtn.textContent = 'Check your answer'
+                checkBtn.classList.remove('btn-warning')
+                checkBtn.classList.add('btn-primary')
+                this.$emit('pinyin-selected', id)
             }
-            this.selectedPinyinId = id
-            let selectedBtn = document.getElementById('choice' + id)
-            let checkBtn = document.getElementById('checkBtn')
-            checkBtn.textContent = 'Check your answer'
-            checkBtn.classList.remove('btn-warning')
-            checkBtn.classList.add('btn-primary')
-            this.$emit('pinyin-selected', id)
         },
         checkSelectedPinyin() {
             let selectedBtn = document.getElementById('choice' + this.selectedPinyinId)
@@ -82,6 +86,7 @@ export default {
             
             if (this.choices[this.selectedPinyinId] == this.solution)
             {
+                this.isChoiceCorrect = true
                 selectedBtn.classList.add('btn-success')
                 checkBtn.style.display = 'none'
                 nextBtn.style.display = 'block'
@@ -104,6 +109,7 @@ export default {
             nextBtn.style.display = 'none'
             checkBtn.style.display = 'block'
             this.selectedPinyinId = null
+            this.isChoiceCorrect = false
             this.$emit('display-next-hanzi')
         }
     }
