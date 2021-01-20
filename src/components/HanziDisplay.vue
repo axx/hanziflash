@@ -9,7 +9,7 @@
         <tbody>
             <tr>
                 <td class="display-1 align-middle">{{displayHanzi.hanzi}}</td>
-                <td class="display-4 align-middle">{{displayHanzi.meaning}}</td>
+                <td class="display-4 align-middle">{{displayMeaning}}</td>
             </tr>
             <tr>
                 <td colspan="2"><PinyinChoices :choices="choices" :solution="correctPinyin" @display-next-hanzi="displayNextHanzi"></PinyinChoices></td>
@@ -20,7 +20,7 @@
 
 <script setup>
 import PinyinChoices from './PinyinChoices.vue'
-import json from './data/simplified-hanzi-1500.json'
+import json from './data/simplified-hanzi-3000.json'
 </script>
 
 <script>
@@ -32,7 +32,8 @@ export default {
             displayHanzi: null,
             choices: null,
             selectedPinyin: null,
-            correctPinyin: null
+            correctPinyin: null,
+            displayMeaning: null,
         }
     },
     methods: {
@@ -62,16 +63,27 @@ export default {
                 newHanzi = this.selectHanzi()
             }
             this.displayHanzi = this.selectHanzi()
-            this.correctPinyin = this.displayHanzi.pinyin
+            this.correctPinyin = this.displayHanzi.meanings[0].pinyin
             this.choices = this.buildPinyinChoices(this.correctPinyin)
+            this.obfuscateMeaning()
+        },
+        obfuscateMeaning() {
+            let bareMeaning = this.displayHanzi.meanings[0].meaning
+            const hanzi = this.displayHanzi.hanzi
+            const pinyin = this.correctPinyin
+            this.displayMeaning = bareMeaning
+            if (this.displayMeaning.search(hanzi)) {
+                this.displayMeaning = this.displayMeaning.replace(pinyin, '~')
+            }
         }
     },
     beforeMount() {
         this.hanziData = json.data
-        this.uniquePinyins = Array.from(new Set(this.hanziData.map(hz => hz.pinyin)))
+        this.uniquePinyins = Array.from(new Set(this.hanziData.map(hz => hz.meanings[0].pinyin)))
         this.displayHanzi = this.selectHanzi()
-        this.correctPinyin = this.displayHanzi.pinyin
+        this.correctPinyin = this.displayHanzi.meanings[0].pinyin
         this.choices = this.buildPinyinChoices(this.correctPinyin)
+        this.obfuscateMeaning()
     }
 }
 </script>
