@@ -4,14 +4,14 @@
             <th colspan="3" class="h3">Select the pinyin</th>
         </tr>
         <tr>
-            <td><button id="choice0" class="btn choice" @click="selectChoice(0)">{{ choices[0] }}</button></td>
-            <td><button id="choice1" class="btn choice" @click="selectChoice(1)">{{ choices[1] }}</button></td>
-            <td><button id="choice2" class="btn choice" @click="selectChoice(2)">{{ choices[2] }}</button></td>
+            <td><button id="choice0" class="btn btn-lg choice" @click="selectChoice(0)">{{ choices[0] }}</button></td>
+            <td><button id="choice1" class="btn btn-lg choice" @click="selectChoice(1)">{{ choices[1] }}</button></td>
+            <td><button id="choice2" class="btn btn-lg choice" @click="selectChoice(2)">{{ choices[2] }}</button></td>
         </tr>
         <tr>
-            <td><button id="choice3" class="btn choice" @click="selectChoice(3)">{{ choices[3] }}</button></td>
-            <td><button id="choice4" class="btn choice" @click="selectChoice(4)">{{ choices[4] }}</button></td>
-            <td><button id="choice5" class="btn choice" @click="selectChoice(5)">{{ choices[5] }}</button></td>
+            <td><button id="choice3" class="btn btn-lg choice" @click="selectChoice(3)">{{ choices[3] }}</button></td>
+            <td><button id="choice4" class="btn btn-lg choice" @click="selectChoice(4)">{{ choices[4] }}</button></td>
+            <td><button id="choice5" class="btn btn-lg choice" @click="selectChoice(5)">{{ choices[5] }}</button></td>
         </tr>
         <tr>
             <td colspan="3">
@@ -25,25 +25,16 @@
 <style scoped>
 button {
     width: 100%;
-}
-button.choice {
-    font-size: 2em;
-    border-color: gray;
     border-radius: 10px;
 }
-button.choice:focus {
+button.choice {
+    border-color: gray;
+}
+button.choice:hover {
     background-color: khaki;
 }
-#checkBtn {
-    font-size: 2em;
-}
 #nextBtn {
-    font-size: 2em;
     display: none;
-}
-.check:disabled {
-    background-color: gray;
-    border-color: gray;
 }
 td {
     width: 33%;
