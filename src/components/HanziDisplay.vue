@@ -3,13 +3,13 @@
         <thead>
             <tr>
                 <th scope="col" class="h3 hanzi-header">Hanzi</th>
-                <th scope="col" class="h3 meaning-header">Meaning</th>
+                <th scope="col" class="h3">Meaning</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td class="display-1 align-middle">{{displayHanzi.hanzi}}</td>
-                <td class="display-4 align-middle">{{displayMeaning}}</td>
+                <td class="display-5 align-middle">{{displayMeaning}}</td>
             </tr>
             <tr>
                 <td colspan="2"><PinyinChoices :choices="choices" :solution="correctPinyin" @display-next-hanzi="displayNextHanzi"></PinyinChoices></td>
