@@ -31,7 +31,13 @@ button.choice {
     border-color: gray;
 }
 button.choice:hover {
-    background-color: khaki;
+    background-color: lightblue;
+}
+button.selected {
+    background-color: skyblue;
+}
+button.choice.selected:hover {
+    background-color: skyblue;
 }
 #nextBtn {
     display: none;
@@ -59,10 +65,11 @@ export default {
             {
                 if (this.selectedPinyinId != null) {
                     let previousSelectedBtn = document.getElementById('choice' + this.selectedPinyinId)
-                    previousSelectedBtn.classList.remove('btn-danger', 'btn-success')
+                    previousSelectedBtn.classList.remove('selected', 'btn-danger', 'btn-success')
                 }
                 this.selectedPinyinId = id
                 let selectedBtn = document.getElementById('choice' + id)
+                selectedBtn.classList.add('selected')
                 let checkBtn = document.getElementById('checkBtn')
                 checkBtn.textContent = 'Check your answer'
                 checkBtn.classList.remove('btn-warning')
@@ -74,6 +81,8 @@ export default {
             let selectedBtn = document.getElementById('choice' + this.selectedPinyinId)
             let checkBtn = document.getElementById('checkBtn')
             let nextBtn = document.getElementById('nextBtn')
+
+            selectedBtn.classList.remove('selected')
             
             if (this.choices[this.selectedPinyinId] == this.solution)
             {
