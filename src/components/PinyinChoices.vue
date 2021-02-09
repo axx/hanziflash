@@ -68,7 +68,6 @@ export default {
                 checkBtn.textContent = 'Check your answer'
                 checkBtn.classList.remove('btn-warning')
                 checkBtn.classList.add('btn-primary')
-                this.$emit('pinyin-selected', id)
             }
         },
         checkSelectedPinyin() {
@@ -91,6 +90,7 @@ export default {
                 checkBtn.textContent = 'Oops, try again'
                 checkBtn.classList.remove('btn-primary')
                 checkBtn.classList.add('btn-warning')
+                this.$emit('wrong-choice')
             }
         },
         displayNextHanzi() {

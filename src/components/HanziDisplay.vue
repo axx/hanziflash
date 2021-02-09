@@ -12,7 +12,14 @@
                 <td class="display-5 align-middle">{{displayMeaning}}</td>
             </tr>
             <tr>
-                <td colspan="2"><PinyinChoices :choices="choices" :solution="correctPinyin" @display-next-hanzi="displayNextHanzi"></PinyinChoices></td>
+                <td colspan="2"><PinyinChoices :choices="choices"
+                                               :solution="correctPinyin"
+                                               @wrong-choice="incrementRetries"
+                                               @display-next-hanzi="displayNextHanzi"></PinyinChoices></td>
+            </tr>
+            <tr>
+                <td colspan="2"><StatsDisplay :retries="currentRetries"
+                                              :latest="previousDisplayInfo"></StatsDisplay></td>
             </tr>
         </tbody>
     </table>
@@ -20,6 +27,7 @@
 
 <script setup>
 import PinyinChoices from './PinyinChoices.vue'
+import StatsDisplay from './StatsDisplay.vue'
 import json from './data/simplified-hanzi-3000.json'
 </script>
 
@@ -27,6 +35,8 @@ import json from './data/simplified-hanzi-3000.json'
 export default {
     data() {
         return {
+            currentRetries: 0,
+            previousDisplayInfo: null,
             hanziData: null,
             uniquePinyins: null,
             displayHanzi: null,
@@ -58,6 +68,13 @@ export default {
             return choices
         },
         displayNextHanzi() {
+            this.previousDisplayInfo = {
+                retries: this.currentRetries,
+                hanzi: this.displayHanzi.hanzi,
+                id: this.displayHanzi.id,
+                pinyin: this.correctPinyin,
+            }
+
             let newHanzi = this.selectHanzi()
             while (newHanzi.hanzi == this.displayHanzi.hanzi) {
                 newHanzi = this.selectHanzi()
@@ -66,6 +83,8 @@ export default {
             this.correctPinyin = this.displayHanzi.meanings[0].pinyin
             this.choices = this.buildPinyinChoices(this.correctPinyin)
             this.obfuscateMeaning()
+
+            this.currentRetries = 0
         },
         obfuscateMeaning() {
             const bareMeaning = this.displayHanzi.meanings[0].meaning
@@ -76,7 +95,10 @@ export default {
             } else {
                 this.displayMeaning = bareMeaning
             }
-        }
+        },
+        incrementRetries() {
+            this.currentRetries += 1
+        },
     },
     beforeMount() {
         this.hanziData = json.data
@@ -85,7 +107,7 @@ export default {
         this.correctPinyin = this.displayHanzi.meanings[0].pinyin
         this.choices = this.buildPinyinChoices(this.correctPinyin)
         this.obfuscateMeaning()
-    }
+    },
 }
 </script>
 
