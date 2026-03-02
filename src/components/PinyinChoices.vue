@@ -1,24 +1,36 @@
 <template>
     <table class="table table-borderless">
-        <tr>
-            <th colspan="3" class="h3">Select the pinyin</th>
-        </tr>
-        <tr>
-            <td><button id="choice0" class="btn btn-lg choice" @click="selectChoice(0)">{{ choices[0] }}</button></td>
-            <td><button id="choice1" class="btn btn-lg choice" @click="selectChoice(1)">{{ choices[1] }}</button></td>
-            <td><button id="choice2" class="btn btn-lg choice" @click="selectChoice(2)">{{ choices[2] }}</button></td>
-        </tr>
-        <tr>
-            <td><button id="choice3" class="btn btn-lg choice" @click="selectChoice(3)">{{ choices[3] }}</button></td>
-            <td><button id="choice4" class="btn btn-lg choice" @click="selectChoice(4)">{{ choices[4] }}</button></td>
-            <td><button id="choice5" class="btn btn-lg choice" @click="selectChoice(5)">{{ choices[5] }}</button></td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <button id="checkBtn" :disabled="selectedPinyinId == null" type="button" class="btn btn-lg btn-primary" @click="checkSelectedPinyin">Check your answer</button>
-                <button id="nextBtn" type="button" class="btn btn-lg btn-success" @click="displayNextHanzi">Correct! Next Hanzi?</button>
-            </td>
-        </tr>
+        <thead>
+            <tr>
+                <th colspan="3" class="h3">Select the pinyin</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><button id="choice0" class="btn btn-lg choice" @click="selectChoice(0)">{{ choices[0] }}</button>
+                </td>
+                <td><button id="choice1" class="btn btn-lg choice" @click="selectChoice(1)">{{ choices[1] }}</button>
+                </td>
+                <td><button id="choice2" class="btn btn-lg choice" @click="selectChoice(2)">{{ choices[2] }}</button>
+                </td>
+            </tr>
+            <tr>
+                <td><button id="choice3" class="btn btn-lg choice" @click="selectChoice(3)">{{ choices[3] }}</button>
+                </td>
+                <td><button id="choice4" class="btn btn-lg choice" @click="selectChoice(4)">{{ choices[4] }}</button>
+                </td>
+                <td><button id="choice5" class="btn btn-lg choice" @click="selectChoice(5)">{{ choices[5] }}</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <button id="checkBtn" :disabled="selectedPinyinId == null" type="button"
+                        class="btn btn-lg btn-primary" @click="checkSelectedPinyin">Check your answer</button>
+                    <button id="nextBtn" type="button" class="btn btn-lg btn-success" @click="displayNextHanzi">Correct!
+                        Next Hanzi?</button>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </template>
 
@@ -27,15 +39,19 @@ button {
     width: 100%;
     border-radius: 10px;
 }
+
 button.choice {
     border-color: gray;
 }
+
 button.choice:hover {
     background-color: lightblue;
 }
+
 #nextBtn {
     display: none;
 }
+
 td {
     width: 33%;
 }
@@ -55,8 +71,7 @@ export default {
     },
     methods: {
         selectChoice(id) {
-            if (!this.isChoiceCorrect)
-            {
+            if (!this.isChoiceCorrect) {
                 if (this.selectedPinyinId != null) {
                     let previousSelectedBtn = document.getElementById('choice' + this.selectedPinyinId)
                     previousSelectedBtn.classList.remove('btn-primary', 'btn-danger', 'btn-success')
@@ -76,16 +91,14 @@ export default {
             let nextBtn = document.getElementById('nextBtn')
 
             selectedBtn.classList.remove('btn-primary')
-            
-            if (this.choices[this.selectedPinyinId] == this.solution)
-            {
+
+            if (this.choices[this.selectedPinyinId] == this.solution) {
                 this.isChoiceCorrect = true
                 selectedBtn.classList.add('btn-success')
                 checkBtn.style.display = 'none'
                 nextBtn.style.display = 'block'
             }
-            else
-            {
+            else {
                 selectedBtn.classList.add('btn-danger')
                 checkBtn.textContent = 'Oops, try again'
                 checkBtn.classList.remove('btn-primary')

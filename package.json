@@ -1,17 +1,17 @@
 {
   "name": "hanziflash",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build --base=/hanziflash/"
   },
   "dependencies": {
-    "bootstrap": "^4.5.3",
-    "vue": "^3.0.5"
+    "bootstrap": "^5.3.8",
+    "vue": "^3.5.29"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.0.4",
-    "@vue/compiler-sfc": "^3.0.5",
-    "vite": "^2.0.0-beta.12"
+    "@vitejs/plugin-vue": "^6.0.4",
+    "@vue/compiler-sfc": "^3.5.29",
+    "vite": "^7.3.1"
   }
 }
